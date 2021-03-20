@@ -14,8 +14,12 @@ function directive(type) {
       typeToken: null,
       rawToken: null,
     },
+    url: null,
+    status: {
+      code: null,
+      message: null,
+    },
     request: {
-      headers: null,
       dataLength: 0,
       status: {
         code: null,
@@ -26,7 +30,6 @@ function directive(type) {
       method: null,
     },
     response: {
-      headers: null,
       dataLength: 0,
       status: {
         code: null,
@@ -36,7 +39,7 @@ function directive(type) {
       url: null,
       method: null,
     },
-    error: [],
+    errors: [],
     custom: {},
     type,
   };
@@ -84,7 +87,7 @@ function directive(type) {
         if (err.code == 'ECONNABORTED') return;
 
         console.error(err);
-        userData.error.push(err);
+        userData.errors.push(err);
       });
 
       return authentificator.call(
