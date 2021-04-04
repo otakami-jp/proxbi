@@ -74,6 +74,8 @@ class Client extends EventEmitter {
         userData.request.bytesRead = socket.bytesRead;
         userData.request.bytesWritten = socket.bytesWritten;
 
+        userData.status = 'Complete';
+
         this.emit('request', userData);
       });
 
@@ -169,7 +171,6 @@ class Client extends EventEmitter {
       });
 
       socket.on('end', () => {
-        //console.log('Client disconnected !');
         if (client) client.end();
       });
     });
@@ -183,7 +184,7 @@ class Client extends EventEmitter {
     this.proxy.once('close', () => {
       console.log('Server closed');      
       
-      this.proxy = this.createNet();
+      this.proxy = this.createProxy();
     });
 
     this.proxy.once('listening', () => {
